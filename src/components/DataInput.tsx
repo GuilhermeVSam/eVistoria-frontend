@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import { VStack, Flex, Input, Text, Select, NumberInput, NumberInputField, NumberInputStepper, NumberDecrementStepper, NumberIncrementStepper } from "@chakra-ui/react"
-import { createPortal } from 'react-dom';
-import { complex } from 'framer-motion';
 
 // Define the props type, including the onChange function
 type DataInputProps = {
@@ -42,7 +40,7 @@ export default function DataInput({ onChange }: DataInputProps) {
   };
 
   return (
-    <VStack margin={10} alignItems={'left'}>
+    <VStack alignItems={'left'}>
       <VStack align={'left'}>
         <Select name='tipoDeVistoria' placeholder='Tipo de Vistoria' value={formData.tipoDeVistoria} onChange={handleInputChange}>
           <option value='entrada'>Entrada</option>

@@ -2,6 +2,9 @@ import React, {useState} from 'react'
 import { ChakraProvider, Flex, Button } from '@chakra-ui/react'
 import DataInput from './components/DataInput'
 import TableInput from './components/TableInput';
+import Header from './components/Header';
+import './css/App.css'
+import { ClassNames } from '@emotion/react';
 
 function App() {
   const [tablesData, setTablesData] = useState({});
@@ -44,20 +47,16 @@ function App() {
   };
   
   return (
-    <>
-      <ChakraProvider>
-        <Flex direction={'column'} align={'center'}>
-          <Flex direction={'row'} align={'center'} gap={70} marginTop={25}>
+    <div className="mainpage">
+          <div className="forms">
             <TableInput onValuesChange={handleTablesData}/>
             <DataInput onChange={handleDataInput}/>
-          </Flex>
-          <Flex direction={'column'} gap={2} width={150} marginTop={100}>
+          </div>
+          <div className="buttons">
             <Button bgColor={'red'} color={'white'} onClick={sendDataToBackend}>Gerar PDF</Button>
             <Button bgColor={'blue'} color={'white'}>Gerar DOCX</Button>
-          </Flex>
-        </Flex>
-      </ChakraProvider>
-    </>
+          </div>
+    </div>
   )
 }
 
