@@ -1,22 +1,18 @@
-import React, {useState} from 'react'
-import { ChakraProvider, Flex, Button } from '@chakra-ui/react'
-import DataInput from './components/DataInput'
+import React, { useState, useEffect } from 'react';
 import TableInput from './components/TableInput';
-import Header from './components/Header';
-import './css/App.css'
-import { ClassNames } from '@emotion/react';
+import DataInput from './components/DataInput';
 
-function App() {
-  const [tablesData, setTablesData] = useState({});
-  const [dataInput, setDataInput] = useState({});
-
-  const handleDataInput = (data: any) => {
-    setDataInput(data);
-  }
+const App = () => {
+  const [tablesData, setTablesData] = useState<any>(null);
+  const [dataInput, setDataInput] = useState<any>(null);
 
   const handleTablesData = (data: any) => {
     setTablesData(data);
-  }
+  };
+
+  const handleDataInput = (data: any) => {
+    setDataInput(data);
+  };
 
   const sendDataToBackend = async () => {
     const combinedData = {
@@ -45,19 +41,28 @@ function App() {
       console.error('Error sending data to the backend:', error);
     }
   };
-  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchSomeData();
+      handleTablesData(data);
+    };
+
+    fetchData();
+  }, []); // Ensure this useEffect has an empty dependency array or proper dependencies
+
   return (
     <div className="mainpage">
-          <div className="forms">
-            <TableInput onValuesChange={handleTablesData}/>
-            <DataInput onChange={handleDataInput}/>
-          </div>
-          <div className="buttons">
-            <Button bgColor={'red'} color={'white'} onClick={sendDataToBackend}>Gerar PDF</Button>
-            <Button bgColor={'blue'} color={'white'}>Gerar DOCX</Button>
-          </div>
+      <div className="forms" style={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center'}}>
+        <TableInput onValuesChange={handleTablesData} />
+        <DataInput onChange={handleDataInput} />
+      </div>
+      <div className="buttons">
+        <button onClick={sendDataToBackend}>Gerar PDF</button>
+        <button>Gerar DOCX</button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

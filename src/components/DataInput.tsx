@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { VStack, Flex, Input, Text, Select, NumberInput, NumberInputField, NumberInputStepper, NumberDecrementStepper, NumberIncrementStepper } from "@chakra-ui/react"
+import '../css/dataInput.css'
 
 // Define the props type, including the onChange function
 type DataInputProps = {

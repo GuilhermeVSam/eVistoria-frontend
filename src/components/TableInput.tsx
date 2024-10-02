@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { VStack, Input, Flex, Button } from '@chakra-ui/react';
+import '../css/tableInput.css'
 
 interface InputField {
   id: number;
@@ -70,40 +71,46 @@ const DynamicInputForm: React.FC<DynamicInputFormProps> = ({ onValuesChange }) =
   };
 
   useEffect(() => {
-    const values = tables.map(table => ({
-      title: table.title,
-      fields: table.fields.map(field => field.value),
-    }));
-    onValuesChange(values);
+    const fetchData = async () =>{
+      const values = tables.map(table => ({
+        title: table.title,
+        fields: table.fields.map(field => field.value),
+      }));
+      onValuesChange(values);
+    }
+
+    fetchData();
   }, [tables, onValuesChange]);
 
   return (
-    <form>
-      {tables.map((table, tableIndex) => (
-        <VStack key={tableIndex} align={'left'} display={'flex'}>
-          <Input
-            placeholder='Título'
-            width={400}
-            marginTop={7}
-            value={table.title}
-            onChange={(e) => handleTitleChange(tableIndex, e.target.value)}
-          />
-          <Flex width={700} direction={'column'} gap={2}>
-            {table.fields.map((field) => (
-              <Input
-                key={field.id}
-                type="text"
-                value={field.value}
-                onChange={(e) => handleInputChange(tableIndex, field.id, e.target.value)}
-              />
-            ))}
-            <Button onClick={() => addInputField(tableIndex)}>Add Input</Button>
-            <Button onClick={() => removeTable(tableIndex)} colorScheme="red">Remove Table</Button>
-          </Flex>
-        </VStack>
-      ))}
-      <Button onClick={addTable}>Add Table</Button>
-    </form>
+    <div className='container'>
+      <form>
+        {tables.map((table, tableIndex) => (
+          <div className='tables' key={tableIndex} align={'left'} display={'flex'}>
+            <input className='titleInput'
+              placeholder='Título'
+              value={table.title}
+              onChange={(e) => handleTitleChange(tableIndex, e.target.value)}
+            />
+            <div className='inputTable'>
+              {table.fields.map((field) => (
+                <input className='inputs'
+                  key={field.id}
+                  type="text"
+                  value={field.value}
+                  onChange={(e) => handleInputChange(tableIndex, field.id, e.target.value)}
+                />
+              ))}
+              <div className='buttons'>
+                <button onClick={() => addInputField(tableIndex)}>Add Input</button>
+                <button onClick={() => removeTable(tableIndex)} color='ff0000'>Remove Table</button>
+              </div>
+            </div>
+          </div>
+        ))}
+        <Button onClick={addTable}>Add Table</Button>
+      </form>
+    </div>
   );
 };
 

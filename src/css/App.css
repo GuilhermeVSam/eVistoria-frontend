@@ -1,21 +1,19 @@
 .forms{
     display: flex;
-    justify-content: space-around;
     align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .mainpage{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
 }
 
 .buttons{
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    color: red;
 }
